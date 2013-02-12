@@ -10,7 +10,7 @@ ul {
 }
  
 h3 {
-  font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+  font: bold 25px/1.5 Helvetica, Verdana, sans-serif;
 }
  
 li img {
@@ -20,17 +20,26 @@ li img {
   width: 30px;
 }
  
-li p {
-  font: 200 12px/1.5 Georgia, Times New Roman, serif;
-}
- 
-li {
+li {	
   padding: 10px;
-  overflow: auto;
+  overflow: none;
 }
+
+li.list {
+	font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+}
+
+li.item {
+	font: 15px/1.5 Helvetica, Verdana, sans-serif;
+}
+
  
-li:hover {
+li.list:hover {
   background: #eee;
+}
+
+li.item:hover {
+  background: #fff;
 }
 
 img:hover {
