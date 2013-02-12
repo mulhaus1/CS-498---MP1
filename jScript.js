@@ -3,9 +3,21 @@
  */
 
 // Create object array for lists
+
+storageKey = "My_Data"
+
 var listList = [];
 var itemUL;
 //var tempList;
+
+var temp = localStorage.getItem(storageKey);
+
+if (temp !== null) {
+	listList = JSON.parse(temp);
+	console.log(listList)
+	generateHTML();
+}
+
 
 // This function is called when Add List button is clicked
 $('input[name="button"]').click(function() {
@@ -32,7 +44,7 @@ $('input[name="button"]').click(function() {
 
 	// Generate new list and add html dynmically
 	generateHTML();
-	
+	saveData();
 	// Clear value of text input box
 	$('input[name="inputText"]').val('');
 });
@@ -58,6 +70,7 @@ $('#myList').on("click", ".RemoveList", function() {
 			return e;
 		}
 	});
+	saveData();
 });
 
 // This function is used when removing item button is clicked
@@ -96,6 +109,7 @@ $('#myList').on("click", ".RemoveItem", function() {
 			return e;
 		}
 	});
+	saveData();
 	
 });
 
@@ -168,7 +182,7 @@ function addItem(newTask) {
 	});
 	
 	generateHTML();
-	
+	saveData();
 }
 
 function generateHTML() {
@@ -190,3 +204,6 @@ function generateHTML() {
 	$('li[class="item"]').append('<input type="button" class="RemoveItem" value="Remove Item">');
 }
 
+function saveData() {
+	localStorage.setItem(storageKey, JSON.stringify(listList));
+}
