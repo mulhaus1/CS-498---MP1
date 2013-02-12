@@ -2,53 +2,66 @@
  * @author Mike
  */
 
-// i = 0;
-//
-// function addItem (form) {
-// var textval = form.inputText.value;
-// var buttonId = "btn" + i;
-// var listId = "item" + i;
-// i++;
-//
-// $("#myList").append('<li id="' + listId + '">' + textval + '</li>');
-// var test = $('<input />', {
-// type: 'button',
-// name: buttonId,
-// value: 'delete',
-// onclick: 'deleteItem()'
-// });
-// $("#myList").append(test);
-// $('input[name="inputText"]').val('');
-// }
+// Create object array for lists
+var listList = [];
 
-var itemList = [];
+// This function is called when Add List button is clicked
 $('input[name="button"]').click(function() {
-	itemList.push($('input[name="inputText"]').val())
-	$("#myList").empty();
-	$.each(itemList, function() {
-		$("#myList").append('<li name = "listItem">' + this + '</li>');
+	
+	// Check to see if list already exists with inputed title
+	var inText = $('input[name="inputText"]').val();
+	var titleTest;
+	$.each(listList, function() {
+		if (this["title"] === inText) {
+			alert("list already exists!");
+			titleTest = false;
+			return false;
+		}
 	});
-	$('li[name="listItem"]').append('<input type="button" name="btnRemove" class="Remove" value="Remove">');
-	$('li[name="listItem"]').append('<input type="button" name="btnAdd" class="Add" value="Add Item">');
-
+	if (titleTest === false) {
+		return;	
+	}
+	
+	// Otherwise, push title and add item array
+	listList.push({
+		"title" : inText,
+		"items" : []
+	});
+	
+	// Generate new list and add html dynmically
+	$("#myList").empty();
+	$.each(listList, function() {
+		$("#myList").append('<li class = "list">' + this["title"] + '</li>');
+	});
+	$('li[class="list"]').append('<input type="button" class="RemoveList" value="Remove">');
+	$('li[class="list"]').append('<input type="button" class="AddItem" value="Add Item">');
+	$('li[class="list"]').append('<ul class="itemList"></ul>');
+	
+	// Clear value of text input box
 	$('input[name="inputText"]').val('');
 });
 
-$('#myList').on("click", ".Remove", function() {
+// This function is used when removing list button is clicked
+$('#myList').on("click", ".RemoveList", function() {
+	// Grab parent <li> element
 	var item = ($(this).closest("li"));
+	
+	// Use hide for animation and remove <li> element
 	item.hide(100, 'swing', function(){
 		item.remove();
-		//console.log($("#myList"));
 	});
+	
+	// Remove list from list array
 	text = item.text();
-	//console.log(text);
-	itemList = $.grep(itemList, function (e) {
-		return e !== text;
+	listList = $.grep(listList, function (e) {
+		if (e["title"] !== text) {
+			return e;
+		}
 	});
-	//console.log(newList);
 });
 
-$('#myList').on("click", ".Add", function() {
-	
-	console.log("adding list item");
+// This function is used when the Add Items button is clicked
+$('#myList').on("click", ".AddItem", function() {
+	var itemList = $(this).siblings(".itemList");
+	itemList.append('<li>YAAAAAAAAAAA BUDDYYYYYYYYYY</li>');
 });
