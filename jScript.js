@@ -26,7 +26,7 @@ $('input[name="button"]').click(function() {
 	itemList.push($('input[name="inputText"]').val())
 	$("#myList").empty();
 	$.each(itemList, function() {
-		$("#myList").append('<li name = "listItem"><p>' + this + '</p></li>');
+		$("#myList").append('<li name = "listItem">' + this + '</li>');
 	});
 	$('li[name="listItem"]').append('<input type="button" name="btnRemove" class="Remove" value="Remove">');
 	$('li[name="listItem"]').append('<input type="button" name="btnAdd" class="Add" value="Add Item">');
@@ -38,10 +38,14 @@ $('#myList').on("click", ".Remove", function() {
 	var item = ($(this).closest("li"));
 	item.hide(100, 'swing', function(){
 		item.remove();
-		console.log(item);
+		//console.log($("#myList"));
 	});
-	//text = item.
-	//var newList = itemList.grep();
+	text = item.text();
+	//console.log(text);
+	itemList = $.grep(itemList, function (e) {
+		return e !== text;
+	});
+	//console.log(newList);
 });
 
 $('#myList').on("click", ".Add", function() {
