@@ -4,12 +4,15 @@
 
 // Create object array for lists
 
+// For access to local storage
 storageKey = "My_Data"
 
+// main variables used in page functionality
 var listList = [];
 var itemUL;
 var exportText;
-var importText;
+
+//localStorage.clear();
 
 // Check for list in localStorage
 var temp = localStorage.getItem(storageKey);
@@ -52,32 +55,22 @@ $('input[name="button1"]').click(function() {
 
 // This function is called when Mark Removed button is clicked
 $('input[name="button2"]').click(function() {
-
-	// // Check to see if list already exists with inputed title
-	// var inText = $('input[name="inputText"]').val();
-	// var titleTest;
-	// $.each(listList, function() {
-		// if (this["title"] === inText) {
-			// alert("list already exists!");
-			// titleTest = false;
-			// return false;
-		// }
-	// });
-	// if (titleTest === false) {
-		// return;
-	// }
-// 
-	// // Otherwise, push title and add item array
-	// listList.push({
-		// "title" : inText,
-		// "items" : []
-	// });
-// 
-	// // Generate new list and add html dynmically
-	// generateHTML();
-	// saveData();
-	// // Clear value of text input box
-	// $('input[name="inputText"]').val('');
+	
+	// Go through all list's task items and check for 'marked'
+	// If 'marked' then remove from list
+	$.each( listList, function() {
+		this["items"] = $.grep(this["items"], function(e) {
+			 if (e["isMarked"] !== true) {
+			 	return e;
+			}
+		});
+	});
+	
+	// Regenerate HTML
+	generateHTML();
+	
+	// Save list to local storage
+	saveData();
 });
 
 // This function is called when Import List button is clicked
@@ -88,8 +81,8 @@ $('input[name="button3"]').click(function() {
 // This function is called when Export List button is clicked
 $('input[name="button4"]').click(function() {
 
+	// Stringify list object and display in modal pop-up
 	exportText = JSON.stringify(listList);
-	console.log(exportText);
 	$("#ExportModal").empty();
 	$("#ExportModal").append(exportText);
 	$("#export-modal").dialog("open");
@@ -129,7 +122,7 @@ $('#myList').on("click", ".RemoveItem", function() {
 		item.remove();
 	});
 
-	// Remove list from list array
+	// Grab the task item text
 	text = item.clone()
 			   .children()
 			   .remove()
@@ -149,7 +142,7 @@ $('#myList').on("click", ".RemoveItem", function() {
 	}
 	
 	// Remove item from the parent list
-	listList[listIndex]["items"] = $.grep(listList[listIndex]["items"], function(e) {
+	listList[listIndex]["items"] = $.grep( listList[listIndex]["items"], function(e) {
 		if (e["task"] !== text) {
 			return e;
 		}
@@ -158,6 +151,42 @@ $('#myList').on("click", ".RemoveItem", function() {
 	// Save list to localStorage
 	saveData();
 	
+});
+
+// This function is used when the Mark Done button is clicked
+$('#myList').on("click", ".MarkDone", function() {
+	var item = ($(this).closest("li"));
+
+	this.style.background = "black";
+
+	// Grab task item text
+	text = item.clone()
+			   .children()
+			   .remove()
+			   .end()
+			   .text();
+	
+	// Grab the parent list's text
+	var listText = item.closest("ul").closest("li").clone();
+	listText = listText.children().remove().end().text();
+	var listIndex;
+	
+	// Find index of listList that this item is in
+	for (var i = 0;i<listList.length; i++) {
+		if (listList[i].title === listText) {
+			listIndex = i;
+		}
+	}
+	
+	// Set task item to 'marked'
+	$.each(listList[listIndex]["items"], function () {
+		if (this["task"] === text) {
+			this["isMarked"] = true;
+		}
+	});
+	
+	// Save list to localStorage
+	saveData();
 });
 
 // This function is used when the Add Items button is clicked
@@ -296,7 +325,8 @@ function addItem(newTask) {
 	
 	// If unique, add to this item list
 	listList[listIndex].items.push({
-		"task" : newTask
+		"task" : newTask,
+		"isMarked" : false
 	});
 	
 	// Generate new list and save list to localStorage
@@ -325,6 +355,7 @@ function generateHTML() {
 	$('li[class="list"]').append('<input type="button" class="RemoveList" value="Remove List">');
 	$('li[class="list"]').append('<input type="button" class="AddItem" value="Add Item">');
 	$('li[class="item"]').append('<input type="button" class="RemoveItem" value="Remove Item">');
+	$('li[class="item"]').append('<input type="button" class="MarkDone" value="Mark as Done">');
 }
 
 // This function is used to save the list to localStorage

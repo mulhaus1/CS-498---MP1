@@ -1,0 +1,92 @@
+h3
+{
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 18pt;
+	color: #1D7373;
+}
+
+#listcontainer ul
+{
+margin: 0;
+padding: 0;
+list-style-type: none;
+font:"Agency FB";
+}
+
+#listcontainer li
+{
+display: block;
+color: #FFF;
+background-color: #006464;
+padding: 3px 12px 3px 8px;
+text-decoration: none;
+border-bottom: 2px solid #fff;
+font-weight: bold;
+-moz-border-radius: 4px;
+-webkit-border-radius: 4px;
+}
+
+#listcontainer li:hover
+{
+background-color: #009A9A;
+color: #FFF;
+}
+
+#listcontainer li li
+{
+display: block;
+color: #FFF;
+background-color: #33CCCC;
+padding: 3px 3px 3px 17px;
+text-decoration: none;
+border-bottom: 1px solid #fff;
+font-weight: normal;
+}
+
+#listcontainer li ul li:hover
+{
+background-color: #5CCCCC;
+color: #FFF;
+}
+
+input[type = button]
+{
+	border: 1px solid #fff;
+  	background: #FF7400;
+ 	 color: white;
+  	font: bold 11px 'Trebuchet MS';
+  	padding: 4px;
+  	cursor: pointer;
+ 	-moz-border-radius: 4px;
+  	-webkit-border-radius: 4px;
+}
+
+input[type = button]:hover
+{
+	background: #BF7130;
+}
+
+input[type = text]
+{
+	border: 1px solid #009A9A;
+	-moz-border-radius: 4px;
+  	-webkit-border-radius: 4px;
+}
+.RemoveList
+{
+	float:right;
+}
+
+.RemoveItem
+{
+	float : right;
+	margin : 0 0 0 25px;
+}
+.MarkDone
+{
+	float : right;
+}
+.RemoveItem
+{
+	float : center;
+}
