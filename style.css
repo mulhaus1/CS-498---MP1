@@ -1,56 +1,9 @@
-/** {margin: 0; padding: 0;}
- 
-div {
-  margin: 20px;
-}
- 
-ul {
-  list-style-type: none;
-  width: 500px;
-}
- 
-h3 {
-  font: bold 25px/1.5 Helvetica, Verdana, sans-serif;
-}
- 
-li img {
-  float: right;
-  margin: 0 15px 0 0;
-  height: 30px;
-  width: 30px;
-}
- 
-li {	
-  padding: 10px;
-  overflow: none;
-}
-
-li.list {
-	font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
-}
-
-li.item {
-	font: 15px/1.5 Helvetica, Verdana, sans-serif;
-}
-
- 
-li.list:hover {
-  background: #eee;
-}
-
-li.item:hover {
-  background: #fff;
-}
-
-img:hover {
-	cursor: pointer;
-}*/
-
 #listcontainer ul
 {
 margin: 0;
 padding: 0;
 list-style-type: none;
+font:"Agency FB";
 }
 
 #listcontainer li
@@ -85,4 +38,25 @@ font-weight: normal;
 {
 background-color: #696969;
 color: #FFF;
+}
+
+input
+{
+	border: 1px solid #006;
+	margin:5px;
+}
+
+.RemoveList
+{
+	float:right;
+}
+
+.AddItem
+{
+	/*float:right;*/
+}
+
+.RemoveItem
+{
+	float : center;
 }

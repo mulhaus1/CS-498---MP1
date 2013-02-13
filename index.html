@@ -12,7 +12,10 @@
 		<form name="myForm" action="">
 			Add new list here: <br />
 			<input type="text" name="inputText" value="" />
-			<input type="button" name="button" value="Add List"/>
+			<input type="button" name="button1" class="AddList" value="Add List"/>
+			<input type="button" name="button2" class="RemoveMarked" value="Remove Marked"/>
+			<input type="button" name="button3" class="ImportList" value="Import List"/>
+			<input type="button" name="button4" class="ExportList" value="Export List"/>
 		</form>
 		<ul id="myList">
 		</ul>
@@ -26,6 +29,17 @@
 	    <input type="text" name="newText" id="newText" class="text ui-widget-content ui-corner-all" />
 	  </fieldset>
 	  </form>
+	</div>
+	<div id="import-form" title="Import List">
+	  <form>
+	  <fieldset>
+	    <label for="newText">JSON</label>
+	    <input type="text" id="newList" class="text ui-widget-content ui-corner-all" />
+	  </fieldset>
+	  </form>
+	</div>
+	<div id="export-modal" class="divExport" title="Exported JSON">
+  		<p id="ExportModal"> </p>
 	</div>
 		
 		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
