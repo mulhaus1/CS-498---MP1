@@ -17,7 +17,7 @@ var exportText;
 // Check for list in localStorage
 var temp = localStorage.getItem(storageKey);
 
-if (temp !== null) {
+if ( temp !== null ) {
 	listList = JSON.parse(temp);
 	generateHTML();
 }
@@ -29,13 +29,13 @@ $('input[name="button1"]').click(function() {
 	var inText = $('input[name="inputText"]').val();
 	var titleTest;
 	$.each(listList, function() {
-		if (this["title"] === inText) {
+		if ( this["title"] === inText ) {
 			alert("list already exists!");
 			titleTest = false;
 			return false;
 		}
 	});
-	if (titleTest === false) {
+	if ( titleTest === false ) {
 		return;
 	}
 
@@ -58,9 +58,9 @@ $('input[name="button2"]').click(function() {
 	
 	// Go through all list's task items and check for 'marked'
 	// If 'marked' then remove from list
-	$.each( listList, function() {
-		this["items"] = $.grep(this["items"], function(e) {
-			 if (e["isMarked"] !== true) {
+	$.each( listList , function() {
+		this["items"] = $.grep( this["items"], function(e) {
+			 if ( e["isMarked"] !== true ) {
 			 	return e;
 			}
 		});
@@ -74,12 +74,12 @@ $('input[name="button2"]').click(function() {
 });
 
 // This function is called when Import List button is clicked
-$('input[name="button3"]').click(function() {
+$('input[name="button3"]').click( function() {
 	$("#import-form").dialog("open");
 });
 
 // This function is called when Export List button is clicked
-$('input[name="button4"]').click(function() {
+$('input[name="button4"]').click( function() {
 
 	// Stringify list object and display in modal pop-up
 	exportText = JSON.stringify(listList);
@@ -89,7 +89,7 @@ $('input[name="button4"]').click(function() {
 });
 
 // This function is used when Remove List button is clicked
-$('#myList').on("click", ".RemoveList", function() {
+$('#myList').on( "click", ".RemoveList", function() {
 	// Grab parent <li> element
 	var item  = ($(this).closest("li"));
 
@@ -105,7 +105,7 @@ $('#myList').on("click", ".RemoveList", function() {
 			   .end()
 			   .text();
 	listList = $.grep(listList, function(e) {
-		if (e["title"] !== text) {
+		if ( e["title"] !== text ) {
 			return e;
 		}
 	});
@@ -113,12 +113,12 @@ $('#myList').on("click", ".RemoveList", function() {
 });
 
 // This function is used when Remove Item button is clicked
-$('#myList').on("click", ".RemoveItem", function() {
+$('#myList').on( "click", ".RemoveItem", function() {
 	// Grab parent <li> element
 	var item = ($(this).closest("li"));
 
 	// Use hide for animation and remove <li> element
-	item.hide(100, 'swing', function() {
+	item.hide( 100, 'swing', function() {
 		item.remove();
 	});
 
@@ -135,15 +135,15 @@ $('#myList').on("click", ".RemoveItem", function() {
 	var listIndex;
 	
 	// Find index of listList that this item is in
-	for (var i = 0;i<listList.length; i++) {
-		if (listList[i].title === listText) {
+	for ( var i = 0; i<listList.length; i++ ) {
+		if ( listList[i].title === listText ) {
 			listIndex = i;
 		}
 	}
 	
 	// Remove item from the parent list
 	listList[listIndex]["items"] = $.grep( listList[listIndex]["items"], function(e) {
-		if (e["task"] !== text) {
+		if ( e["task"] !== text ) {
 			return e;
 		}
 	});
@@ -154,7 +154,7 @@ $('#myList').on("click", ".RemoveItem", function() {
 });
 
 // This function is used when the Mark Done button is clicked
-$('#myList').on("click", ".MarkDone", function() {
+$('#myList').on( "click", ".MarkDone", function() {
 	var item = ($(this).closest("li"));
 
 	this.style.background = "black";
@@ -172,15 +172,15 @@ $('#myList').on("click", ".MarkDone", function() {
 	var listIndex;
 	
 	// Find index of listList that this item is in
-	for (var i = 0;i<listList.length; i++) {
-		if (listList[i].title === listText) {
+	for ( var i = 0; i<listList.length; i++ ) {
+		if ( listList[i].title === listText ) {
 			listIndex = i;
 		}
 	}
 	
 	// Set task item to 'marked'
-	$.each(listList[listIndex]["items"], function () {
-		if (this["task"] === text) {
+	$.each( listList[listIndex]["items"], function () {
+		if ( this["task"] === text ) {
 			this["isMarked"] = true;
 		}
 	});
@@ -190,7 +190,7 @@ $('#myList').on("click", ".MarkDone", function() {
 });
 
 // This function is used when the Add Items button is clicked
-$('#myList').on("click", ".AddItem", function() {
+$('#myList').on( "click", ".AddItem", function() {
 	
 	// Grab <UL> holding this list item
 	itemUL = $(this).siblings(".itemList");
@@ -303,23 +303,23 @@ function addItem(newTask) {
 						.text();
 	// Find the index of the list that this item is in
 	var listIndex;
-	for (var i = 0;i<listList.length; i++) {
-		if (listList[i].title === parentTitle) {
+	for ( var i = 0; i<listList.length; i++ ) {
+		if ( listList[i].title === parentTitle ) {
 			listIndex = i;
 		}
 	}
 	
 	// Make sure the item is unique to this list
 	var taskTest;
-	$.each(listList[listIndex].items, function() {
-		if (this["task"] === newTask) {
+	$.each( listList[listIndex].items, function() {
+		if ( this["task"] === newTask ) {
 			alert("Task item already exists!");
 			taskTest = false;
 			return false;
 		}
 	});
 	
-	if (taskTest === false) {
+	if ( taskTest === false ) {
 		return;
 	}
 	
